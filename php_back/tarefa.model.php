@@ -2,7 +2,7 @@
 
     class Tarefa {
         private number $id;
-        private boolean $id_status;
+        private bool $id_status;
         private string $tarefa;
         private string $data_cadastro;
 
@@ -16,4 +16,5 @@
     }
     
 
+    
 ?>
