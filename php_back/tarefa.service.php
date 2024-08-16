@@ -1,6 +1,6 @@
 <?php 
 
-    class TarefaService extends Tarefa {
+    class TarefaService {
            public function inserir(){//create
 
            }
