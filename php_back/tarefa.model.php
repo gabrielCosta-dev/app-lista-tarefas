@@ -1,7 +1,7 @@
 <?php 
 
     class Tarefa {
-        private number $id;
+        private string $id;
         private bool $id_status;
         private string $tarefa;
         private string $data_cadastro;
