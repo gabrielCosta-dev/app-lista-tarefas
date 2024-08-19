@@ -17,6 +17,13 @@
 		<link rel="stylesheet" href="css/estilo.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+		<style>		
+			/* Edição de tarefas incluídas */
+			.editar:hover{
+				cursor: pointer;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -56,10 +63,12 @@
 								 ?>
 
 								<div class="row mb-3 d-flex align-items-center tarefa">
-									<div class="col-sm-9"><?= $tarefa->tarefa ?> (<?= $tarefa->status ?>)</div>
+									<div class="col-sm-9" id="tarefa_<?=$tarefa->id?>">
+										<?= $tarefa->tarefa ?> (<?= $tarefa->status ?>)
+									</div>
 									<div class="col-sm-3 mt-2 d-flex justify-content-between">
-										<i class="fas fa-trash-alt fa-lg text-danger"></i>
-										<i class="fas fa-edit fa-lg text-info"></i>
+										<i class="fas fa-trash-alt fa-lg text-danger" id="apagar"></i>
+										<i class="fas fa-edit fa-lg text-info editar"></i>
 										<i class="fas fa-check-square fa-lg text-success"></i>
 									</div>
 								</div>
@@ -72,5 +81,60 @@
 				</div>
 			</div>
 		</div>
+
+
+		<script>
+			document.querySelectorAll('.fa-edit').forEach((editar) =>{
+			editar.addEventListener('click', ()=>{
+				let tarefaId = event.target.closest('.tarefa').querySelector('.col-sm-9').id
+				let tarefaDiv = document.getElementById(tarefaId)
+				
+				
+				//Criar form de edição
+				let form = document.createElement('form')
+				form.action = '#'
+				form.method = 'post'
+				form.className = 'row ml-2'
+
+				//Input entrada de texto
+				let inputTarefa = document.createElement('input')
+				inputTarefa.type = 'text'
+				inputTarefa.name = 'tarefa'
+				inputTarefa.className = 'col-9 form-control'
+				inputTarefa.value = document.getElementById(tarefaId).textContent.trim()
+
+				// Extrai o ID da tarefa da div
+                tarefaId = tarefaDiv.id.replace('tarefa_', '');
+				console.log(tarefaId);
+
+				//Input hidden
+				let inputId = document.createElement('input')
+				inputId.type = 'hidden'
+				inputId.name = 'tarefa_id';
+                inputId.value = tarefaId;
+
+				//Button de envio do form
+				let botao = document.createElement('button')
+				botao.type = 'submit'
+				botao.className = 'col-3 btn btn-info p-1'
+				botao.innerHTML = 'Atualizar'
+
+				//Inclusão inputTarefa no form
+				form.appendChild(inputTarefa)
+
+				//Inclusão input hidden
+				form.appendChild(inputId)
+
+				//Inclusão botão ao form
+				form.appendChild(botao)
+				
+				//Limpar conteudo div tarefa
+				tarefaDiv.innerHTML = ''
+
+				//Incluir form na página
+				tarefaDiv.parentNode.insertBefore(form, tarefaDiv)
+			})
+			})
+		</script>
 	</body>
 </html>
