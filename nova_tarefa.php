@@ -27,7 +27,7 @@
 			<h5>Tarefa inserida com sucesso</h5>
 		</div>
 
-		<?php } else { ?>
+		<?php } if(isset($_GET['inclusao']) AND $_GET['inclusao'] == '0') { ?>
 
 			<div class="bg-danger pt-2 text-white d-flex justify-content-center">
 				<h5>Falha ao inserir nova tarefa</h5>
