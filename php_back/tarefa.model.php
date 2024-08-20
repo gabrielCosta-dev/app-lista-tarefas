@@ -2,7 +2,7 @@
 
     class Tarefa {
         private string $id;
-        private bool $id_status;
+        private string $id_status;
         private string $tarefa;
         private string $data_cadastro;
 
@@ -12,6 +12,7 @@
 
         public function __set($atributo, $valor){
             $this->$atributo = $valor;
+            return $this;
         }
     }
     
