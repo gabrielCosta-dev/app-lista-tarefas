@@ -16,7 +16,7 @@
                     $stmt = $this->conexao->prepare($query); 
                     $stmt->bindValue(':tarefa', $this->tarefa->__get('tarefa'));
                     $stmt->execute();
-                    
+
                     header('Location:nova_tarefa.php?inclusao=1');
                 } else {
                     header('Location:nova_tarefa.php?inclusao=0');
@@ -41,18 +41,42 @@
                 update
                     tb_tarefas
                 set
-                    tarefa = :tarefa
+                    tarefa = ?
                 where
-                    id = :id';
+                    id = ?';
 
                $stmt = $this->conexao->prepare($query); 
-               $stmt->bindValue(':tarefa', $this->tarefa->__get('tarefa'));
-               $stmt->bindValue(':id', $this->tarefa->__get('id'));
+               $stmt->bindValue(1, $this->tarefa->__get('tarefa'));
+               $stmt->bindValue(2, $this->tarefa->__get('id'));
                return $stmt->execute();   
            }
 
            public function remover(){//delete
+                $query = '
+                    delete from
+                        tb_tarefas
+                    where 
+                        id = ? 
+                ';
+                $stmt = $this->conexao->prepare($query);
+                $stmt->bindValue(1, $this->tarefa->__get('id'));
+                return $stmt->execute();   
+           }
 
+           public function marcarRealizada(){
+                $query = '
+                update
+                    tb_tarefas
+                set 
+                   id_status_fk = ?
+                where
+                    id = ?   ';
+               
+                    
+                $stmt = $this->conexao->prepare($query); 
+                $stmt->bindValue(1, $this->tarefa->__get('id_status'));
+                $stmt->bindValue(2, $this->tarefa->__get('id'));
+                return $stmt->execute();        
            }
     }
 
