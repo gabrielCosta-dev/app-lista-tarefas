@@ -27,7 +27,13 @@
 			<h5>Tarefa inserida com sucesso</h5>
 		</div>
 
-		<?php } ?>
+		<?php } else { ?>
+
+			<div class="bg-danger pt-2 text-white d-flex justify-content-center">
+				<h5>Falha ao inserir nova tarefa</h5>
+			</div>
+
+		<?php } ?>	
 
 		<div class="container app">
 			<div class="row">
@@ -46,7 +52,7 @@
 								<h4>Nova tarefa</h4>
 								<hr />
 
-								<form method="post" action="tarefa_controller.php">
+								<form method="post" action="tarefa_controller.php?acao=inserir">
 									<div class="form-group">
 										<label>Descrição da tarefa:</label>
 										<input type="text" class="form-control" placeholder="Exemplo: Lavar o carro" name="tarefa">
